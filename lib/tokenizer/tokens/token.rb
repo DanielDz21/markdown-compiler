@@ -1,10 +1,10 @@
+require_relative 'null_token'
 class Token
   attr_reader :type, :value
 
   def initialize(type, value)
-    type = @type,
-    value = @value
-
+    @type = type
+    @value = value
     raise InvalidTokenError if type.nil? || value.nil?
   end
 
@@ -13,10 +13,10 @@ class Token
   end
 
   def self.end_of_file
-    Token.new(type: 'EOF', value: '')
+    Token.new('EOF', '')
   end
 
-  def lenght
+  def length
     value.length
   end
 

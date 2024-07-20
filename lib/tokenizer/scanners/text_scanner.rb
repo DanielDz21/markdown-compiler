@@ -1,9 +1,11 @@
+require_relative '../tokens/token'
+
 class TextScanner < SimpleScanner
   def self.from_string(plain_markdown)
     text = plain_markdown
            .each_char
            .take_while { |char| SimpleScanner.from_string(char).null? }
-            .join('')
+           .join('')
 
     Token.new('TEXT', text)
   rescue InvalidTokenError

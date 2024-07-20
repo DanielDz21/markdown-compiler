@@ -1,9 +1,11 @@
+require_relative '../tokens/token'
+
 class SimpleScanner
-  TOKEN_TYPES = [
-    '_' => 'UNDERSCORE',
-    '*' => 'STAR',
+  TOKEN_TYPES = {
+    '_'  => 'UNDERSCORE',
+    '*'  => 'STAR',
     "\n" => 'NEWLINE'
-  ].freeze
+  }.freeze
 
   def self.from_string(plain_markdown)
     char = plain_markdown[0]

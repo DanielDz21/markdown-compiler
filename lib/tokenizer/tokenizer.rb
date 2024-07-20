@@ -1,22 +1,26 @@
+require_relative 'scanners/simple_scanner'
+require_relative 'scanners/text_scanner'
+require_relative 'token_list'
+
 class Tokenizer
   TOKEN_SCANNERS = [
     SimpleScanner, # Scans for simple tokens (`_` and `*`)
-    TextScanner    # Scans for text tokens
+    TextScanner    # Scans for text (everything that is not a simple token)
   ].freeze
 
   def tokenize(plain_markdown)
-    tokens_array = token_as_array(plain_markdown)
+    tokens_array = tokens_as_array(plain_markdown)
     TokenList.new(tokens_array)
   end
 
   private
 
-  def token_as_array(plain_markdown)
+  def tokens_as_array(plain_markdown)
     if plain_markdown.nil? || plain_markdown.empty?
-      return [Token.end_of_file]
+      [Token.end_of_file]
     else
       token = scan_one_token(plain_markdown)
-      [token] + token_as_array(plain_markdown[token.length..-1])
+      [token] + tokens_as_array(plain_markdown[token.length..-1])
     end
   end
 
